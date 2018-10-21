@@ -1,48 +1,174 @@
-var inquirer = require('inquirer');
+//require mysql and inquirer
 var mysql = require('mysql');
-var Table = require('cli-table');
+var inquirer = require('inquirer');
 
+//create connection to db
 var connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root", //Your username
-    password: "", //Your password
-    database: "Bamazon_db"
+  host: "localhost",
+  port: 3306,
+  user: "root", // You Username
+  password: "", // Your Password
+  database: "Bamazon_db" // Your Database
 })
 
+// allow user to use arrow keys (up and down) to select from list 
+function start(){
+  inquirer.prompt([{
+    type: "list",
+    name: "doThing",
+    message: "What would you like to do?",
+    choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product","End Session"]
+  }]).then(function(ans){
+     switch(ans.doThing){
+      case "View Products for Sale": viewProducts();
+      break;
+      case "View Low Inventory": viewLowInventory();
+      break;
+      case "Add to Inventory": addToInventory();
+      break;
+      case "Add New Product": addNewProduct();
+      break;
+      case "End Session": console.log('Bye!');
+    }
+  });
+}
 
-//MAIN MAAGER PROMPT WHICH RUNS FOR THE MANAGER FILE WHICH HAS MANY DIFFERENT OPTIONS TO CHOOSE FROM 
-var managerPrompt = function() {
-    inquirer.prompt({
-        name: "action",
-        type: "list",
-        message: "Hello! What would you like to do?",
-        choices: ["View products for sale", 'View low inventory', "Add to inventory", "Add a new product", 'Exit']
-    }).then(function(answer) {
-        switch (answer.action) {
-            case 'View products for sale':
-                viewInven(function() {
-                    managerPrompt();
-                });
-                break;
+//views all inventory
+function viewProducts(){
+  console.log('>>>>>>Viewing Products<<<<<<');
 
-            case 'View low inventory':
-                viewLowInven(function() {
-                    managerPrompt();
-                });
-                break;
+  connection.query('SELECT * FROM Products', function(err, res){
+  if(err) throw err;
+  console.log('----------------------------------------------------------------------------------------------------')
 
-            case 'Add to inventory':
-                addToInven();
-                break;
+  for(var i = 0; i<res.length;i++){
+    console.log("ID: " + res[i].item_id + " | " + "Product: " + res[i].product_name + " | " + "Department: " + res[i].department_name + " | " + "Price: " + res[i].price + " | " + "QTY: " + res[i].stock_quantity);
+    console.log('--------------------------------------------------------------------------------------------------')
+  }
 
-            case 'Add a new product':
-                addNewProd();
-                break;
-                //THIS IS AN EXTRA CHOICE ADDED TO EXIT THE NODE RUNNING
-            case 'Exit':
-                connection.end();
-                break;
+  start();
+  });
+}
+
+//views inventory lower than 5
+function viewLowInventory(){
+  console.log('>>>>>>Viewing Low Inventory<<<<<<');
+
+  connection.query('SELECT * FROM Products', function(err, res){
+  if(err) throw err;
+  console.log('----------------------------------------------------------------------------------------------------')
+
+  for(var i = 0; i<res.length;i++){
+    // set minimum inventory quantity to display items that are below 5
+    if(res[i].stock_quantity <= 5){
+    console.log("ID: " + res[i].item_id + " | " + "Product: " + res[i].product_name + " | " + "Department: " + res[i].department_name + " | " + "Price: " + res[i].price + " | " + "QTY: " + res[i].stock_quantity);
+    console.log('--------------------------------------------------------------------------------------------------');
+    }
+  }
+
+  start();
+  });
+}
+
+//displays prompt to add more of an item to the store and asks how much
+function addToInventory(){
+  console.log('>>>>>>Adding to Inventory<<<<<<');
+
+  connection.query('SELECT * FROM Products', function(err, res){
+  if(err) throw err;
+  var itemArray = [];
+  //pushes each item into an itemArray
+  for(var i=0; i<res.length; i++){
+    itemArray.push(res[i].product_name);
+  }
+
+  inquirer.prompt([{
+    type: "list",
+    name: "product",
+    choices: itemArray,
+    message: "Which item would you like to add inventory?"
+  }, {
+    type: "input",
+    name: "qty",
+    message: "How much would you like to add?",
+    validate: function(value){
+      if(isNaN(value) === false){return true;}
+      else{return false;}
+    }
+    }]).then(function(ans){
+      var currentQty;
+      for(var i=0; i<res.length; i++){
+        if(res[i].ProductName === ans.product){
+          currentQty = res[i].stock_quantity;
         }
+      }
+      connection.query('UPDATE Products SET ? WHERE ?', [
+        {stock_quantity: currentQty + parseInt(ans.qty)},
+        {product_name: ans.product}
+        ], function(err, res){
+          if(err) throw err;
+          console.log('The quantity was updated.');
+          start();
+        });
+      })
+  });
+}
+
+
+// allows manager to add a completely new product to store
+function addNewProduct(){
+  console.log('>>>>>>Adding New Product<<<<<<');
+  var deptNames = [];
+
+  // grab name of departments
+  connection.query('SELECT * FROM Departments', function(err, res){
+    if(err) throw err;
+    for(var i = 0; i<res.length; i++){
+      deptNames.push(res[i].department_name);
+    }
+  })
+
+  inquirer.prompt([{
+    type: "input",
+    name: "product",
+    message: "Product: ",
+    validate: function(value){
+      if(value){return true;}
+      else{return false;}
+    }
+  }, {
+    type: "list",
+    name: "department",
+    message: "Department: ",
+    choices: deptNames
+  }, {
+    type: "input",
+    name: "price",
+    message: "Price: ",
+    validate: function(value){
+      if(isNaN(value) === false){return true;}
+      else{return false;}
+    }
+  }, {
+    type: "input",
+    name: "quantity",
+    message: "Quantity: ",
+    validate: function(value){
+      if(isNaN(value) == false){return true;}
+      else{return false;}
+    }
+  }]).then(function(ans){
+    connection.query('INSERT INTO Products SET ?',{
+      ProductName: ans.product,
+      DepartmentName: ans.department,
+      Price: ans.price,
+      StockQuantity: ans.quantity
+    }, function(err, res){
+      if(err) throw err;
+      console.log('Another item was added to the store.');
     })
-};
+    start();
+  });
+}
+
+start();
