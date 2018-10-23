@@ -39,10 +39,12 @@ function viewProducts(){
 
   connection.query('SELECT * FROM Products', function(err, res){
   if(err) throw err;
+  
   console.log('----------------------------------------------------------------------------------------------------')
 
   for(var i = 0; i<res.length;i++){
     console.log("ID: " + res[i].item_id + " | " + "Product: " + res[i].product_name + " | " + "Department: " + res[i].department_name + " | " + "Price: " + res[i].price + " | " + "QTY: " + res[i].stock_quantity);
+    
     console.log('--------------------------------------------------------------------------------------------------')
   }
 
@@ -62,6 +64,7 @@ function viewLowInventory(){
     // set minimum inventory quantity to display items that are below 5
     if(res[i].stock_quantity <= 5){
     console.log("ID: " + res[i].item_id + " | " + "Product: " + res[i].product_name + " | " + "Department: " + res[i].department_name + " | " + "Price: " + res[i].price + " | " + "QTY: " + res[i].stock_quantity);
+    
     console.log('--------------------------------------------------------------------------------------------------');
     }
   }

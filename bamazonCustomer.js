@@ -2,7 +2,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 
-
 //create connection to db
 var connection = mysql.createConnection({
   host: "localhost",
@@ -18,10 +17,12 @@ connection.query('SELECT * FROM Products', function(err, res){
   if(err) throw err;
 
   console.log('Welcome to BAMAZON! The Store of Endless possibilites!')
+
   console.log('----------------------------------------------------------------------------------------------------')
 
   for(var i = 0; i<res.length;i++){
     console.log("ID: " + res[i].item_id + " | " + "Product: " + res[i].product_name + " | " + "Department: " + res[i].department_name + " | " + "Price: " + res[i].price + " | " + "QTY: " + res[i].stock_quantity);
+    
     console.log('--------------------------------------------------------------------------------------------------')
   }
 
