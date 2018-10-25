@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root", // Your Username
-  password: "", // Your password
+  password: "Hub$chm!tt0816", // Your password
   database: "Bamazon_db" // Your Database
 })
 
@@ -45,7 +45,7 @@ connection.query('SELECT * FROM Products', function(err, res){
     {
       type: "input",
       name: "qty",
-      message: "How much would you like to purchase?",
+      message: "How much(quantity) would you like to purchase?",
       validate: function(value){
         if(isNaN(value)){
           return false;

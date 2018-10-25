@@ -5,7 +5,6 @@ I will be creating an Amazon-like storefront with the MySQL. The app will take i
 
 Instructions
 
-
 Challenge #1: Customer View (Minimum Requirement)
 
 Create a MySQL Database called bamazon.
