@@ -3,6 +3,10 @@
 I will be creating an Amazon-like storefront with the MySQL. The app will take in orders from customers and deplete stock from the store's inventory. As a bonus task, you can program your app to track product sales across your store's departments and then provide a summary of the highest-grossing departments in the store.
 
 
+Preview of Bamazon in links below:
+https://drive.google.com/file/d/16gvRTKlrRWaIIytjCBppuAWYOFZlRH1Q/view
+https://drive.google.com/file/d/1ZYX3I4_q-urgM6SrE9So9ENVlgvTsvK1/view
+
 Instructions
 
 Challenge #1: Customer View (Minimum Requirement)
