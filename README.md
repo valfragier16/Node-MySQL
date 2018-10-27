@@ -2,10 +2,10 @@
 
 I will be creating an Amazon-like storefront with the MySQL. The app will take in orders from customers and deplete stock from the store's inventory. As a bonus task, you can program your app to track product sales across your store's departments and then provide a summary of the highest-grossing departments in the store.
 
-# MySQL Database Setup
+<h3>MySQL Database Setup</h3>
 In order to run this application, you should have the MySQL database already set up on your machine. If you don't, visit the MySQL installation page to install the version you need for your operating system. Once you have MySQL isntalled, you will be able to create the Bamazon database and the products table with the SQL code found in bamazonSchema.sql. Run this code inside your MySQL client like Sequel Pro to populate the database, then you will be ready to proceed with running the Bamazon customer and manager interfaces.
 
-# Customer Interface
+<h3>Customer Interface</h3>
 The customer interface allows the user to view the current inventory of store items: item IDs, descriptions, department in which the item is located and price. The user is then able to purchase one of the existing items by entering the item ID and the desired quantity. If the selected quantity is currently in stock, the user's order is fulfilled, displaying the total purchase price and updating the store database. If the desired quantity is not available, the user is prompted to modify their order.
 
 The customer interface will display the image below:
@@ -24,7 +24,7 @@ To run the customer interface please follow the steps below:
 <a href="https://drive.google.com/file/d/1hnqsvTF0Ev_eVkEEvhmEQUFKOAJT_Dzg/view" target="_blank">Bamazon Customer Demo </a>
 
 
-# Manager Interface
+<h3>Manager Interface</h3>
 The manager interface presents a list of five options, as below.
 
 <img src="Images/BamazonManager.PNG">
@@ -48,7 +48,7 @@ To run the manager interface please follow the steps below:
 
 <a href="https://drive.google.com/file/d/1VSNJI3YePpS-CgxiN--Q5886hHDOdqXv/view" target="_blank">Bamazon Manager Demo </a>
 
-# Supervisor Interface
+<h3>Supervisor Interface</h3>
 The supervisor interface presents a list of three options, as below.
 
 <img src="Images/BamazonSupervisor.PNG">
