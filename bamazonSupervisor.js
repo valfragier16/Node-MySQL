@@ -39,7 +39,7 @@ function viewProductByDept(){
     console.log('----------------------------------------------------------------------------------------------------')
 
     for(var i = 0; i<res.length;i++){
-      console.log("Department ID: " + res[i].department_id + " | " + "Department Name: " + res[i].department_name + " | " + "Over Head Costs: " + (res[i].over_head_costs).toFixed(2) + " | " + "Product Sales: " + (res[i].product_sales).toFixed(2) + " | " + "Total Profit: " + (res[i].product_sales - res[i].over_head_costs).toFixed(2));
+      console.log("Department ID: " + res[i].department_id + " | " + "Name: " + res[i].department_name + " | " + "Over Head Costs: " + (res[i].over_head_costs).toFixed(2) + " | " + "Product Sales: " + (res[i].product_sales).toFixed(2) + " | " + "Total Profit: " + (res[i].product_sales - res[i].over_head_costs).toFixed(2));
       
       console.log('--------------------------------------------------------------------------------------------------')
     }
