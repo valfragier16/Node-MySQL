@@ -11,106 +11,119 @@ var connection = mysql.createConnection({
   database: "Bamazon_db" // Your Database
 })
 
-function start(){
-//prints the items for sale and their details
-connection.query('SELECT * FROM Products', function(err, res){
-  if(err) throw err;
 
-  console.log('Welcome to BAMAZON! The Store of Endless possibilites!')
+// validateInput makes sure that the user is supplying only positive integers for their inputs
+function validateInput(value) {
+	var integer = Number.isInteger(parseFloat(value));
+	var sign = Math.sign(value);
 
-  console.log('----------------------------------------------------------------------------------------------------')
+	if (integer && (sign === 1)) {
+		return true;
+	} else {
+		return 'Please enter a whole non-zero number.';
+	}
+}
 
-  for(var i = 0; i<res.length;i++){
-    console.log("ID: " + res[i].item_id + " | " + "Product: " + res[i].product_name + " | " + "Department: " + res[i].department_name + " | " + "Price: " + res[i].price + " | " + "QTY: " + res[i].stock_quantity);
+// displayInventory will retrieve the current inventory from the database and output it to the console
+function displayInventory() {
+
+	// Construct the db query string
+	queryStr = 'SELECT * FROM products';
+
+	// Make the db query
+	connection.query(queryStr, function(err, res) {
+    if (err) throw err;
     
-    console.log('--------------------------------------------------------------------------------------------------')
-  }
-
-  console.log(' ');
-
-  // ask for buyer to select ID # for desired item
-  inquirer.prompt([
-    {
-      type: "input",
-      name: "id",
-      message: "What is the ID of the product you would like to purchase?",
-      validate: function(value){
-        if(isNaN(value) == false && parseInt(value) <= res.length && parseInt(value) > 0){
-          return true;
-        } else{
-          return false;
-        }
-      }
-    },
-    {
-      type: "input",
-      name: "qty",
-      message: "How much would you like to purchase?",
-      validate: function(value){
-        if(isNaN(value)){
-          return false;
-        } else{
-          return true;
-        }
-      }
+    console.log('Welcome to BAMAZON! The Store of Endless possibilites!')
+    console.log('----------------------------------------------------------------------------------------------------')
+		
+		for (var i = 0; i < res.length; i++) {
+			console.log('ID: ' + res[i].item_id + ' | ' + 'Product: ' + res[i].product_name + ' | ' + 'Department: ' + res[i].department_name + ' | ' + 'Price: $' + res[i].price + ' | ' + 'Stock Quantity: ' + res[i].stock_quantity);
+      console.log('----------------------------------------------------------------------------------------------------')
+      
+    
     }
-    ]).then(function(ans){
-      var whatToBuy = (ans.id)-1;
-      var howMuchToBuy = parseInt(ans.qty);
-      var grandTotal = parseFloat(((res[whatToBuy].Price)*howMuchToBuy).toFixed(2));
+	  	//Prompt the user for item/quantity they would like to purchase
+	  	promptUserPurchase();
+	})
+}
 
-      //check if quantity is sufficient
-      if(res[whatToBuy].StockQuantity >= howMuchToBuy){
-        //after purchase, updates quantity in Products
-        connection.query("UPDATE Products SET ? WHERE ?", [
-        {StockQuantity: (res[whatToBuy].StockQuantity - howMuchToBuy)},
-        {ItemID: ans.id}
-        ], function(err, result){
-            if(err) throw err;
-            console.log("Success! Your total is $" + grandTotal.toFixed(2) + ". Your item(s) will be shipped to you in 3-5 business days.");
-        });
+// promptUserPurchase will prompt the user for the item/quantity they would like to purchase
+function promptUserPurchase() {
 
-        connection.query("SELECT * FROM Departments", function(err, deptRes){
-          if(err) throw err;
-          var index;
-          for(var i = 0; i < deptRes.length; i++){
-            if(deptRes[i].DepartmentName === res[whatToBuy].DepartmentName){
-              index = i;
-            }
-          }
+	// Prompt the user to select an item
+	inquirer.prompt([
+		{
+			type: 'input',
+			name: 'item_id',
+			message: 'Please enter the ID for which you would like to purchase.',
+			validate: validateInput,
+			filter: Number
+		},
+		{
+			type: 'input',
+			name: 'quantity',
+			message: 'How many do you need?',
+			validate: validateInput,
+			filter: Number
+		}
+	]).then(function(input) {
+    var item = input.item_id;
+		var quantity = input.quantity;
+
+		// Query db to confirm that the given item ID exists in the desired quantity
+		var queryStr = 'SELECT * FROM products WHERE ?';
+
+		connection.query(queryStr, {item_id: item}, function(err, res) {
+			if (err) throw err;
+
+			// If the user has selected an invalid item ID, data attay will be empty
+			if (res.length === 0) {
+				console.log('ERROR: Invalid Item ID. Please select a valid Item ID.');
+				displayInventory();
+
+			} else {
+				var productRes = res[0];
+				// If the quantity requested by the user is in stock
+				if (quantity <= productRes.stock_quantity) {
+					console.log('Congratulations, the product you requested is in stock! Placing order!');
+
+					// Construct the updating query string
+					var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productRes.stock_quantity - quantity) + ' WHERE item_id = ' + item;
+					// console.log('updateQueryStr = ' + updateQueryStr);
+
+					// Update the inventory
+					connection.query(updateQueryStr, function(err, res) {
+						if (err) throw err;
+
+            console.log('Your order has been placed! Your total is $' + productRes.price * quantity);
+            
+						console.log('Thank you for shopping with us!');
+						console.log("\n---------------------------------------------------------------------\n");
+
+						// End the database connection
+						connection.end();
+					})
+				} else {
+          console.log('Sorry, there is not enough product in stock, your order can not be placed as is.');
           
-          //updates total Sales in departments table
-          connection.query("UPDATE Departments SET ? WHERE ?", [
-          {TotalSales: deptRes[index].TotalSales + grandTotal},
-          {DepartmentName: res[whatToBuy].DepartmentName}
-          ], function(err, deptRes){
-              if(err) throw err;
-              //console.log("Updated Dept Sales.");
-          });
-        });
+					console.log('Please modify your order.');
+					console.log("\n---------------------------------------------------------------------\n");
 
-      } else{
-        console.log("Sorry, there's not enough in stock!");
-      }
-
-      reprompt();
-    })
-})
+					displayInventory();
+				}
+			}
+		})
+  })
 }
 
-//asks if they would like to purchase another item
-function reprompt(){
-  inquirer.prompt([{
-    type: "confirm",
-    name: "reply",
-    message: "Would you like to purchase another item?"
-  }]).then(function(ans){
-    if(ans.reply){
-      start();
-    } else{
-      console.log("See you soon!");
-    }
-  });
+// runBamazon will execute the main application logic
+function runBamazon() {
+	// Display the available inventory
+	displayInventory();
 }
 
-start();
+// Run the application logic
+runBamazon();
+
+
