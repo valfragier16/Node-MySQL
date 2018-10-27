@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root", // You Username
-  password: "Hub$chm!tt0816", // Your Password
+  password: "", // Your Password
   database: "Bamazon_db" // Your Database
 })
 
