@@ -24,10 +24,12 @@ To run the customer interface please follow the steps below:
 <a href="https://drive.google.com/file/d/1hnqsvTF0Ev_eVkEEvhmEQUFKOAJT_Dzg/view" target="_blank">Bamazon Customer Demo </a>
 
 
+
+
 <h3>Manager Interface</h3>
 The manager interface presents a list of five options, as below.
 
-<img src="Images/BamazonManager.PNG">
+<img src="Images/BamazonManager.js.gif">
   
 The View Products for Sale option allows the user to view the current inventory of store items: item IDs, descriptions, department in which the item is located, price, and the quantity available in stock.
 
@@ -51,7 +53,7 @@ To run the manager interface please follow the steps below:
 <h3>Supervisor Interface</h3>
 The supervisor interface presents a list of three options, as below.
 
-<img src="Images/BamazonSupervisor.PNG">
+<img src="Images/BamazonSupervisor.js.gif">
 
 The Product Sales by department option will display the table with all of our products similar to the table displayed for the customer interface. However this table will include an "Over head costs", "Product Sales", and "Total profit" column, in which the formula of Product sales - Over head costs will calculate the Total profit. 
 
