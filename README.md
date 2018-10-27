@@ -14,12 +14,12 @@ The customer interface will display the image below:
 
 To run the customer interface please follow the steps below:
 
-    <ol>
-      <li>git clone git@github.com:valfragier16/Node-MySQL.git</li>
-      <li>cd Node-MySQL</li>
-      <li>npm install</li>
-      <li>node bamazonCustomer.js</li>
-    </ol>
+<ol>
+  <li>git clone git@github.com:valfragier16/Node-MySQL.git</li>
+  <li>cd Node-MySQL</li>
+  <li>npm install</li>
+  <li>node bamazonCustomer.js</li>
+</ol> 
 
 <a href="https://drive.google.com/file/d/1hnqsvTF0Ev_eVkEEvhmEQUFKOAJT_Dzg/view" target="_blank">Bamazon Customer Demo </a>
 
@@ -39,12 +39,12 @@ The Add New Product option allows the user to enter details about a new product 
 
 To run the manager interface please follow the steps below:
 
-    <ol>
-      <li>git clone git@github.com:valfragier16/Node-MySQL.git</li>
-      <li>cd Node-MySQL</li>
-      <li>npm install</li>
-      <li>node bamazonCustomer.js</li>
-    </ol>
+<ol>
+  <li>git clone git@github.com:valfragier16/Node-MySQL.git</li>
+  <li>cd Node-MySQL</li>
+  <li>npm install</li>
+  <li>node bamazonCustomer.js</li>
+</ol> 
 
 <a href="https://drive.google.com/file/d/1VSNJI3YePpS-CgxiN--Q5886hHDOdqXv/view" target="_blank">Bamazon Manager Demo </a>
 
@@ -57,12 +57,12 @@ The Product Sales by department option will display the table with all of our pr
 
 To run the supervisor interface please follow the steps below:
 
-    <ol>
-      <li>git clone git@github.com:valfragier16/Node-MySQL.git</li>
-      <li>cd Node-MySQL</li>
-      <li>npm install</li>
-      <li>node bamazonCustomer.js</li>
-    </ol>
+<ol>
+  <li>git clone git@github.com:valfragier16/Node-MySQL.git</li>
+  <li>cd Node-MySQL</li>
+  <li>npm install</li>
+  <li>node bamazonCustomer.js</li>
+</ol> 
 
 <a href="https://drive.google.com/file/d/1J-022D99quXj66T14yOOTrxP8p8FU80e/view" target="_blank">Bamazon Supervisor Demo </a>
 
