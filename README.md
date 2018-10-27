@@ -19,6 +19,9 @@ cd Node-MySQL
 npm install
 node bamazonCustomer.js
 
+<a href="https://drive.google.com/file/d/1hnqsvTF0Ev_eVkEEvhmEQUFKOAJT_Dzg/view" target="_blank">Bamazon Customer Demo </a>
+
+
 # Manager Interace
 The manager interface presents a list of five options, as below.
 
@@ -39,6 +42,8 @@ cd Node-MySQL
 npm install
 node bamazonManager.js
 
+<a href="https://drive.google.com/file/d/1VSNJI3YePpS-CgxiN--Q5886hHDOdqXv/view" target="_blank">Bamazon Manager Demo </a>
+
 # Supervisor Interace
 The supervisor interface presents a list of three options, as below.
 
@@ -52,6 +57,8 @@ git clone git@github.com:valfragier16/Node-MySQL.git
 cd Node-MySQL
 npm install
 node bamazonSupervisor.js
+
+<a href="https://drive.google.com/file/d/1J-022D99quXj66T14yOOTrxP8p8FU80e/view" target="_blank">Bamazon Supervisor Demo </a>
 
 
 
