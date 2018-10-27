@@ -43,7 +43,7 @@ To run the manager interface please follow the steps below:
   <li>git clone git@github.com:valfragier16/Node-MySQL.git</li>
   <li>cd Node-MySQL</li>
   <li>npm install</li>
-  <li>node bamazonCustomer.js</li>
+  <li>node bamazonManager.js</li>
 </ol> 
 
 <a href="https://drive.google.com/file/d/1VSNJI3YePpS-CgxiN--Q5886hHDOdqXv/view" target="_blank">Bamazon Manager Demo </a>
@@ -61,7 +61,7 @@ To run the supervisor interface please follow the steps below:
   <li>git clone git@github.com:valfragier16/Node-MySQL.git</li>
   <li>cd Node-MySQL</li>
   <li>npm install</li>
-  <li>node bamazonCustomer.js</li>
+  <li>node bamazonSupervisor.js</li>
 </ol> 
 
 <a href="https://drive.google.com/file/d/1J-022D99quXj66T14yOOTrxP8p8FU80e/view" target="_blank">Bamazon Supervisor Demo </a>
