@@ -24,7 +24,7 @@ To run the customer interface please follow the steps below:
 <a href="https://drive.google.com/file/d/1hnqsvTF0Ev_eVkEEvhmEQUFKOAJT_Dzg/view" target="_blank">Bamazon Customer Demo </a>
 
 
-# Manager Interace
+# Manager Interface
 The manager interface presents a list of five options, as below.
 
 <img src="Images/BamazonManager.PNG">
@@ -48,7 +48,7 @@ To run the manager interface please follow the steps below:
 
 <a href="https://drive.google.com/file/d/1VSNJI3YePpS-CgxiN--Q5886hHDOdqXv/view" target="_blank">Bamazon Manager Demo </a>
 
-# Supervisor Interace
+# Supervisor Interface
 The supervisor interface presents a list of three options, as below.
 
 <img src="Images/BamazonSupervisor.PNG">
