@@ -24,6 +24,8 @@ To run the customer interface please follow the steps below:
 <a href="https://drive.google.com/file/d/1hnqsvTF0Ev_eVkEEvhmEQUFKOAJT_Dzg/view" target="_blank">Bamazon Customer Demo </a>
 
 
+
+
 <h3>Manager Interface</h3>
 The manager interface presents a list of five options, as below.
 
